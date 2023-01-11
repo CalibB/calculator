@@ -19,3 +19,7 @@ function divide(num1, num2) {
 function exponent(num, expo) {
     return Math.pow(num, expo);
 };
+
+function operate(func, num1, num2) {
+    return func(num1, num2);
+};
