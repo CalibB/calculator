@@ -54,7 +54,32 @@ body {
 }
 .calculator__keypad {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    width: 100%;
+    gap: 5px;
+}
+.keypad__column {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 3px;
+}
+.operator__column {
+    display: flex;
+    flex-direction: column;
+}
+.standard__operators {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 3px;
+}
+.standard__operators .keypad__column {
+    width: 50%;
+}
+.operator__column .keypad__column {
+    width: 100%;
+}
+.btn {
+    padding: .5rem;
     width: 100%;
 }
