@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
-    <title>Calcu</title>
+    <title>Calcu - Your Personal Calculator</title>
 </head>
 <body>
     <header class="header">
@@ -26,64 +26,72 @@
             </button>
         </div>
         <div class="calculator__keypad">
-            <div class="keypad__row1">
-                <button class="keypad__seven-btn">
+            <div class="keypad__column">
+                <button class="btn num-7">
                     7
                 </button>
-                <button class="keypad__eight-btn">
-                    8
-                </button>
-                <button class="keypad__nine-btn">
-                    9
-                </button>
-                <button class="keypad__add-btn">
-                    +
-                </button>
-                <button class="keypad__subtract-btn">
-                    -
-                </button>
-            </div>
-            <div class="keypad__row2">
-                <button class="keypad__four-btn">
+                <button class="btn num-4">
                     4
                 </button>
-                <button class="keypad__five-btn">
-                    5
-                </button>
-                <button class="keypad__six-btn">
-                    6
-                </button>
-                <button class="keypad__multiply-btn">
-                    x
-                </button>
-                <button class="keypad__divide-btn">
-                    ÷
-                </button>
-            </div>
-            <div class="keypad__row3">
-                <button class="keypad__one-btn">
+                <button class="btn num-1">
                     1
                 </button>
-                <button class="keypad__two-btn">
-                    2
-                </button>
-                <button class="keypad__three-btn">
-                    3
-                </button>
-                <button class="keypad__exponent-btn">
-                    x<sup>y</sup>
-                </button>
-            </div>
-            <div class="keypad__row4">
-                <button class="keypad__clear-btn">
+                <button class="btn clear-btn">
                     Clear
                 </button>
-                <button class="keypad__zero-btn">
+            </div>
+            <div class="keypad__column">
+                <button class="btn num-8">
+                    8
+                </button>
+                <button class="btn num-5">
+                    5
+                </button>
+                <button class="btn num-2">
+                    2
+                </button>
+                <button class="btn num-0">
                     0
                 </button>
-                <button class="keypad__equals-btn">
-                    =
+            </div>
+            <div class="keypad__column">
+                <button class="btn num-9">
+                    9
                 </button>
+                <button class="btn num-6">
+                    6
+                </button>
+                <button class="btn num-3">
+                    3
+                </button>
+            </div>
+            <div class="operator__column">
+                <div class="standard__operators">
+                    <div class="keypad__column">
+                        <button class="btn add-op">
+                            +
+                        </button>
+                        <button class="btn multiply-op">
+                            x
+                        </button>
+                    </div>
+                    <div class="keypad__column">
+                        <button class="btn subtract-op">
+                            -
+                        </button>
+                        <button class="btn divide-op">
+                            ÷
+                        </button>
+                    </div>
+                </div>
+                <div class="keypad__column">
+                    <button class="btn exponent-op">
+                        x<sup>y</sup>
+                    </button>
+                    <button class="btn operate-op">
+                        =
+                    </button>
+                </div>
             </div>
         </div>
     </main>
