@@ -24,3 +24,37 @@ body {
 .title__sup {
     font-size: .5rem;
 }
+
+.calculator {
+    margin-top: 2rem;
+    min-width: 450px;
+    border-style: solid;
+    border-color: black;
+    padding: .5rem;
+}
+.calculator__branding {
+    display: flex;
+    justify-content: space-between;
+}
+.calculator__screen-section {
+    display: flex;
+    justify-content: space-between;
+    margin: .5rem 0 .5rem 0;
+}
+.screen-section__screen {
+    width: 80%;
+    height: 100%;
+    background-color: grey;
+    padding: .3rem;
+    display: flex;
+    justify-content: flex-end;
+}
+.screen-section__deleteBtn {
+    width: 15%;
+}
+.calculator__keypad {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
