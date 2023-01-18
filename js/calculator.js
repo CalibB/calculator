@@ -185,6 +185,9 @@ equalsBtn.addEventListener('click', () => {
     } else {
         let func = determineOperator();
         result = operate(func, expression[0], expression[2]);
+        if (result.toString().includes('.')) {
+            result = result.toFixed(2);
+        }
         display.textContent = result;
         operationCount = 0;
     };
@@ -272,6 +275,9 @@ function operateIfTwo() {
     if (operationCount == 4) {
         let func = determineOperator();
         let result = operate(func, Number(expression[0]), Number(expression[2]));
+        if (result.toString().includes('.')) {
+            result = result.toFixed(2);
+        }
         expression = [result, (expression[1] = expression[3])]
         display.textContent = `${expression[0]} ${expression[1]}`;
     }
