@@ -48,7 +48,7 @@ function toDisplay(number) {
         display.textContent = `${expression[0] += num}`;
     } else {
         expression[0] = num;
-        display.textContent += `${expression[0]}`;
+        display.textContent = `${expression[0]}`;
         operationCount++;
     }
 }
@@ -138,13 +138,7 @@ exponentBtn.addEventListener('click', () => {
     operationCount++;
 });
 
-const equalsBtn = document.querySelector('.operate-op');
-equalsBtn.addEventListener('click', () => {
-    let func = determineOperator();
-    result = operate(func, expression[0], expression[2]);
-    display.textContent = result;
-    operationCount = 0;
-});
+// Determining operator and displaying result
 
 function determineOperator() {
     if (expression[1] == '+') {
@@ -159,3 +153,55 @@ function determineOperator() {
         return exponent
     }
 };
+
+const equalsBtn = document.querySelector('.operate-op');
+equalsBtn.addEventListener('click', () => {
+    let func = determineOperator();
+    result = operate(func, expression[0], expression[2]);
+    display.textContent = result;
+    operationCount = 0;
+});
+
+// Deleting inputs
+
+const deleteBtn = document.querySelector('.screen-section__deleteBtn');
+deleteBtn.addEventListener('click', () => {
+    let oldContent = display.textContent.split('');
+    oldContent.pop();
+    oldContent = oldContent.join('');
+    let test = oldContent.split(' ');
+    let index = 0;
+    let temp = 0;
+
+    if (test.includes('+')) {
+        index = test.findIndex((element) => element == '+');
+        temp = test.slice((index + 1));
+        expression[2] = temp;
+        operationCount = 3;
+    } else if (test.includes('-')) {
+        index = test.findIndex((element) => element == '+');
+        temp = test.slice((index + 1));
+        expression[2] = temp;
+        operationCount = 3;
+    } else if (test.includes('x')) {
+        index = test.findIndex((element) => element == '+');
+        temp = test.slice((index + 1));
+        expression[2] = temp;
+        operationCount = 3;
+    } else if (test.includes('÷')) {
+        index = test.findIndex((element) => element == '+');
+        temp = test.slice((index + 1));
+        expression[2] = temp;
+        operationCount = 3;
+    } else if (test.includes('^')) {
+        index = test.findIndex((element) => element == '+');
+        temp = test.slice((index + 1));
+        expression[2] = temp;
+        operationCount = 3;
+    } else {
+        expression[0] = test.join('');
+        operationCount = 1;
+    };
+
+    display.textContent = test.join('');
+})
