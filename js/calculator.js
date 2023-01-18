@@ -131,11 +131,27 @@ divideBtn.addEventListener('click', () => {
 
 const exponentBtn = document.querySelector('.exponent-op');
 exponentBtn.addEventListener('click', () => {
-    oper = '**'
+    oper = '^'
     operationCount++;
 });
 const equalsBtn = document.querySelector('.operate-op');
 equalsBtn.addEventListener('click', () => {
+    let func = determineOperator();
+    result = operate(func, expression[0], expression[2]);
     display.textContent = result;
     operationCount = 0;
 });
+
+function determineOperator() {
+    if (expression[1] == '+') {
+        return add
+    } else if (expression[1] == '-') {
+        return subtract
+    } else if (expression[1] == 'x') {
+        return multiply
+    } else if (expression[1] == '÷') {
+        return divide
+    } else if (expression[1] == '^') {
+        return exponent
+    }
+};
