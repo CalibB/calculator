@@ -42,7 +42,7 @@ display.textContent = 0;
 
 function toDisplay(number) {
     let num = number.toString();
-    if (operationCount > 2) {
+    if (operationCount == 3) {
         display.textContent = `${expression[0]} ${expression[1]} ${expression[2] += num}`
     } else if (operationCount == 2) {
         expression.push(num);
@@ -127,6 +127,7 @@ addBtn.addEventListener('click', () => {
     expression.push('+');
     display.textContent += ` ${expression[1]}`;
     operationCount++;
+    operateIfTwo();
 });
 
 const subtractBtn = document.querySelector('.subtract-op');
@@ -134,6 +135,7 @@ subtractBtn.addEventListener('click', () => {
     expression.push('-');
     display.textContent += ` ${expression[1]}`;
     operationCount++;
+    operateIfTwo();
 });
 
 const multiplyBtn = document.querySelector('.multiply-op');
@@ -141,6 +143,7 @@ multiplyBtn.addEventListener('click', () => {
     expression.push('x');
     display.textContent += ` ${expression[1]}`;
     operationCount++;
+    operateIfTwo();
 });
 
 const divideBtn = document.querySelector('.divide-op');
@@ -148,6 +151,7 @@ divideBtn.addEventListener('click', () => {
     expression.push('÷');
     display.textContent += ` ${expression[1]}`;
     operationCount++;
+    operateIfTwo();
 });
 
 const exponentBtn = document.querySelector('.exponent-op');
@@ -155,6 +159,7 @@ exponentBtn.addEventListener('click', () => {
     expression.push('^')
     display.textContent += `${expression[1]}`;
     operationCount++;
+    operateIfTwo();
 });
 
 // Determining operator and displaying result
@@ -175,10 +180,14 @@ function determineOperator() {
 
 const equalsBtn = document.querySelector('.operate-op');
 equalsBtn.addEventListener('click', () => {
-    let func = determineOperator();
-    result = operate(func, expression[0], expression[2]);
-    display.textContent = result;
-    operationCount = 0;
+    if (expression[2] === undefined) {
+        display.textContent = 'Human! You forgot the second operand!!'
+    } else {
+        let func = determineOperator();
+        result = operate(func, expression[0], expression[2]);
+        display.textContent = result;
+        operationCount = 0;
+    };
 });
 
 // Deleting inputs
@@ -194,29 +203,54 @@ deleteBtn.addEventListener('click', () => {
 
     if (test.includes('+')) {
         index = test.findIndex((element) => element == '+');
-        temp = test.slice((index + 1));
-        expression[2] = temp;
-        operationCount = 3;
+        if (test[index + 1] == undefined) {
+            expression[1] = test[index];
+            operationCount = 2;
+        } else {
+            temp = test.slice((index + 1));
+            expression[2] = temp;
+            operationCount = 3;
+        }
     } else if (test.includes('-')) {
-        index = test.findIndex((element) => element == '+');
-        temp = test.slice((index + 1));
-        expression[2] = temp;
-        operationCount = 3;
+        index = test.findIndex((element) => element == '-');
+        if (test[index + 1] == undefined) {
+            expression[1] = test[index];
+            operationCount = 2;
+        } else {
+            temp = test.slice((index + 1));
+            expression[2] = temp;
+            operationCount = 3;
+        }
     } else if (test.includes('x')) {
-        index = test.findIndex((element) => element == '+');
-        temp = test.slice((index + 1));
-        expression[2] = temp;
-        operationCount = 3;
+        index = test.findIndex((element) => element == 'x');
+        if (test[index + 1] == undefined) {
+            expression[1] = test[index];
+            operationCount = 2;
+        } else {
+            temp = test.slice((index + 1));
+            expression[2] = temp;
+            operationCount = 3;
+        }
     } else if (test.includes('÷')) {
-        index = test.findIndex((element) => element == '+');
-        temp = test.slice((index + 1));
-        expression[2] = temp;
-        operationCount = 3;
+        index = test.findIndex((element) => element == '÷');
+        if (test[index + 1] == undefined) {
+            expression[1] = test[index];
+            operationCount = 2;
+        } else {
+            temp = test.slice((index + 1));
+            expression[2] = temp;
+            operationCount = 3;
+        }
     } else if (test.includes('^')) {
-        index = test.findIndex((element) => element == '+');
-        temp = test.slice((index + 1));
-        expression[2] = temp;
-        operationCount = 3;
+        index = test.findIndex((element) => element == '^');
+        if (test[index + 1] == undefined) {
+            expression[1] = test[index];
+            operationCount = 2;
+        } else {
+            temp = test.slice((index + 1));
+            expression[2] = temp;
+            operationCount = 3;
+        }
     } else {
         expression[0] = test.join('');
         operationCount = 1;
@@ -233,3 +267,14 @@ clearBtn.addEventListener('click', () => {
     operationCount = 0;
     display.textContent = 0;
 });
+
+function operateIfTwo() {
+    if (operationCount == 4) {
+        let func = determineOperator();
+        let result = operate(func, Number(expression[0]), Number(expression[2]));
+        expression = [result, (expression[1] = expression[3])]
+        display.textContent = `${expression[0]} ${expression[1]}`;
+    }
+
+    operationCount = 2;
+}
