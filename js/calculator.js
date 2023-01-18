@@ -103,6 +103,21 @@ btn0.addEventListener('click', () => {
     toDisplay(0);
 });
 
+const btnPoint = document.querySelector('.point-btn');
+btnPoint.addEventListener('click', () => {
+    if (operationCount == 1 && !expression[0].toString().includes('.')) {
+        toDisplay('.');
+    } else if (operationCount > 2 && !expression[2].toString().includes('.')) {
+        toDisplay('.')
+    } else {
+        btnPoint.style.borderColor = 'red';
+
+        setTimeout(() => {
+            btnPoint.style.borderColor = 'revert';   
+        }, '1000');
+    };
+});
+
 const addBtn = document.querySelector('.add-op');
 addBtn.addEventListener('click', () => {
     expression.push('+');
