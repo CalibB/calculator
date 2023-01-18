@@ -133,9 +133,11 @@ divideBtn.addEventListener('click', () => {
 
 const exponentBtn = document.querySelector('.exponent-op');
 exponentBtn.addEventListener('click', () => {
-    oper = '^'
+    expression.push('^')
+    display.textContent += `${expression[1]}`;
     operationCount++;
 });
+
 const equalsBtn = document.querySelector('.operate-op');
 equalsBtn.addEventListener('click', () => {
     let func = determineOperator();
