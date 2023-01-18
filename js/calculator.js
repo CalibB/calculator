@@ -21,6 +21,8 @@ function exponent(num, expo) {
 };
 
 function operate(func, num1, num2) {
+    num1 = Number(num1);
+    num2 = Number(num2);
     return func(num1, num2);
 };
 
