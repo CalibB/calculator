@@ -204,4 +204,13 @@ deleteBtn.addEventListener('click', () => {
     };
 
     display.textContent = test.join('');
-})
+});
+
+// Clearing everything
+
+const clearBtn = document.querySelector('.clear-btn');
+clearBtn.addEventListener('click', () => {
+    expression = [];
+    operationCount = 0;
+    display.textContent = 0;
+});
