@@ -188,8 +188,9 @@ equalsBtn.addEventListener('click', () => {
         if (result.toString().includes('.')) {
             result = result.toFixed(2);
         }
-        display.textContent = result;
-        operationCount = 0;
+        expression = [result];
+        display.textContent = `${expression[0]}`;
+        operationCount = 1;
     };
 });
 
@@ -284,3 +285,122 @@ function operateIfTwo() {
 
     operationCount = 2;
 }
+
+// Keyboard support
+
+function getKey(event) {
+    let key = event.key;
+    let regex = /\d/g;
+    
+    if (regex.test(key)) {
+        toDisplay(key);
+    } else if (key == '+' || key == '-') {
+        expression.push(key);
+        display.textContent += ` ${expression[1]}`;
+        operationCount++;
+        operateIfTwo();
+    } else if (key == '*') {
+        expression.push('x');
+        display.textContent += ` ${expression[1]}`;
+        operationCount++;
+        operateIfTwo();
+    } else if (key == '/') {
+        expression.push('÷');
+        display.textContent += ` ${expression[1]}`;
+        operationCount++;
+        operateIfTwo();
+    } else if (key == '.') {
+        if (operationCount == 1 && !expression[0].toString().includes('.')) {
+            toDisplay('.');
+        } else if (operationCount > 2 && !expression[2].toString().includes('.')) {
+            toDisplay('.')
+        } else {
+            btnPoint.style.borderColor = 'red';
+    
+            setTimeout(() => {
+                btnPoint.style.borderColor = 'revert';   
+            }, '1000');
+        };
+    } else if (key == 'Enter') {
+        if (expression[2] === undefined) {
+            display.textContent = 'Human! You forgot the second operand!!'
+        } else {
+            let func = determineOperator();
+            result = operate(func, expression[0], expression[2]);
+            if (result.toString().includes('.')) {
+                result = result.toFixed(2);
+            }
+            expression = [result];
+            display.textContent = `${expression[0]}`;
+            operationCount = 1;
+        };
+    } else if (key == 'Backspace') {
+        let oldContent = display.textContent.split('');
+        oldContent.pop();
+        oldContent = oldContent.join('');
+        let test = oldContent.split(' ');
+        let index = 0;
+        let temp = 0;
+
+        if (test.includes('+')) {
+            index = test.findIndex((element) => element == '+');
+            if (test[index + 1] == undefined) {
+                expression[1] = test[index];
+                operationCount = 2;
+            } else {
+                temp = test.slice((index + 1));
+                expression[2] = temp;
+                operationCount = 3;
+            }
+        } else if (test.includes('-')) {
+            index = test.findIndex((element) => element == '-');
+            if (test[index + 1] == undefined) {
+                expression[1] = test[index];
+                operationCount = 2;
+            } else {
+                temp = test.slice((index + 1));
+                expression[2] = temp;
+                operationCount = 3;
+            }
+        } else if (test.includes('x')) {
+            index = test.findIndex((element) => element == 'x');
+            if (test[index + 1] == undefined) {
+                expression[1] = test[index];
+                operationCount = 2;
+            } else {
+                temp = test.slice((index + 1));
+                expression[2] = temp;
+                operationCount = 3;
+            }
+        } else if (test.includes('÷')) {
+            index = test.findIndex((element) => element == '÷');
+            if (test[index + 1] == undefined) {
+                expression[1] = test[index];
+                operationCount = 2;
+            } else {
+                temp = test.slice((index + 1));
+                expression[2] = temp;
+                operationCount = 3;
+            }
+        } else if (test.includes('^')) {
+            index = test.findIndex((element) => element == '^');
+            if (test[index + 1] == undefined) {
+                expression[1] = test[index];
+                operationCount = 2;
+            } else {
+                temp = test.slice((index + 1));
+                expression[2] = temp;
+                operationCount = 3;
+            }
+        } else {
+            expression[0] = test.join('');
+            operationCount = 1;
+        };
+
+        display.textContent = test.join('');
+    };
+}
+
+document.body.addEventListener('keyup', (e) => {
+    getKey(e);
+});
