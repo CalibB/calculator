@@ -15,6 +15,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    background-color: #F3EFE0;
+    color: #222222
 }
 
 .header {
@@ -26,11 +29,12 @@ body {
 }
 
 .calculator {
-    margin-top: 2rem;
     min-width: 450px;
     border-style: solid;
-    border-color: black;
+    border-color: #22A39F;
     padding: .5rem;
+    background-color: #434242;
+    color: #F3EFE0;
 }
 .calculator__branding {
     display: flex;
@@ -43,11 +47,11 @@ body {
 }
 .screen-section__screen {
     width: 80%;
-    height: 100%;
     background-color: grey;
     padding: .3rem;
     display: flex;
     justify-content: flex-end;
+    font-size: 1.5rem;
 }
 .screen-section__deleteBtn {
     width: 15%;
@@ -82,4 +86,20 @@ body {
 .btn {
     padding: .5rem;
     width: 100%;
+    background-color: #22A39F;
+    font-size: 1.5rem;
+}
+
+.add-op,
+.multiply-op,
+.subtract-op,
+.divide-op,
+.exponent-op,
+.operate-op {
+    background-color: #222222;
+    color: white;
+}
+
+.footer {
+    padding-bottom: 1rem;
 }
