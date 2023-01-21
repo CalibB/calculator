@@ -122,12 +122,23 @@ btnPoint.addEventListener('click', () => {
     };
 });
 
+function safetyCheck(sign) {
+    if (expression[1] == undefined && /\d/.test(expression[0])) {
+        expression.push(sign);
+        display.textContent += ` ${expression[1]}`;
+        operationCount++;
+        operateIfTwo();
+    } else if (expression[2] !== undefined) {
+        expression.push(sign);
+        display.textContent += ` ${expression[1]}`;
+        operationCount++;
+        operateIfTwo();
+    }
+}
+
 const addBtn = document.querySelector('.add-op');
 addBtn.addEventListener('click', () => {
-    expression.push('+');
-    display.textContent += ` ${expression[1]}`;
-    operationCount++;
-    operateIfTwo();
+     safetyCheck('+');
 });
 
 const subtractBtn = document.querySelector('.subtract-op');
@@ -151,26 +162,17 @@ subtractBtn.addEventListener('click', () => {
 
 const multiplyBtn = document.querySelector('.multiply-op');
 multiplyBtn.addEventListener('click', () => {
-    expression.push('x');
-    display.textContent += ` ${expression[1]}`;
-    operationCount++;
-    operateIfTwo();
+    safetyCheck('x');
 });
 
 const divideBtn = document.querySelector('.divide-op');
 divideBtn.addEventListener('click', () => {
-    expression.push('÷');
-    display.textContent += ` ${expression[1]}`;
-    operationCount++;
-    operateIfTwo();
+    safetyCheck('÷');
 });
 
 const exponentBtn = document.querySelector('.exponent-op');
 exponentBtn.addEventListener('click', () => {
-    expression.push('^')
-    display.textContent += `${expression[1]}`;
-    operationCount++;
-    operateIfTwo();
+    safetyCheck('^');
 });
 
 // Determining operator and displaying result
