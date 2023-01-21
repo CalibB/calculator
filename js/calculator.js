@@ -132,10 +132,21 @@ addBtn.addEventListener('click', () => {
 
 const subtractBtn = document.querySelector('.subtract-op');
 subtractBtn.addEventListener('click', () => {
-    expression.push('-');
-    display.textContent += ` ${expression[1]}`;
-    operationCount++;
-    operateIfTwo();
+    if (operationCount == 0 && !display.textContent.includes('-')) {
+        expression.push('-');
+        display.textContent = `${expression[0]}`;
+        operationCount++;
+    } else if (expression[2] == undefined && expression[1] !== undefined) {
+        expression.push('-');
+        display.textContent += ` ${expression[2]}`;
+        operateIfTwo();
+        operationCount++;
+    } else if (expression[1] == undefined && /\d/.test(expression[0])) {
+        expression.push('-');
+        display.textContent += ` ${expression[1]}`;
+        operationCount++;
+        operateIfTwo();
+    }
 });
 
 const multiplyBtn = document.querySelector('.multiply-op');
@@ -181,7 +192,14 @@ function determineOperator() {
 const equalsBtn = document.querySelector('.operate-op');
 equalsBtn.addEventListener('click', () => {
     if (expression[2] === undefined) {
-        display.textContent = 'Human! You forgot the second operand!!'
+        display.textContent = 'You forgot the second operand!!'
+        expression = [];
+        operationCount = 0;
+        deleteBtn.removeEventListener('click', deleteDisplay);
+        setTimeout(() => {
+            display.textContent = 0;
+            deleteBtn.addEventListener('click', deleteDisplay);
+        }, 2000);
     } else {
         let func = determineOperator();
         result = operate(func, expression[0], expression[2]);
@@ -190,14 +208,23 @@ equalsBtn.addEventListener('click', () => {
         }
         expression = [result];
         display.textContent = `${expression[0]}`;
-        operationCount = 1;
+        if (display.textContent == 'Seriously human!?') {
+            expression = [];
+            operationCount = 0;
+            deleteBtn.removeEventListener('click', deleteDisplay);
+            setTimeout(() => {
+                display.textContent = 0;
+                deleteBtn.addEventListener('click', deleteBtn);
+            }, 2000);
+        } else {
+            operationCount = 1;
+        }
     };
 });
 
 // Deleting inputs
 
-const deleteBtn = document.querySelector('.screen-section__deleteBtn');
-deleteBtn.addEventListener('click', () => {
+function deleteDisplay() {
     let oldContent = display.textContent.split('');
     oldContent.pop();
     oldContent = oldContent.join('');
@@ -261,7 +288,10 @@ deleteBtn.addEventListener('click', () => {
     };
 
     display.textContent = test.join('');
-});
+}
+
+const deleteBtn = document.querySelector('.screen-section__deleteBtn');
+deleteBtn.addEventListener('click', deleteDisplay);
 
 // Clearing everything
 
@@ -294,11 +324,32 @@ function getKey(event) {
     
     if (regex.test(key)) {
         toDisplay(key);
-    } else if (key == '+' || key == '-') {
+    } else if (key == '+') {
         expression.push(key);
         display.textContent += ` ${expression[1]}`;
         operationCount++;
         operateIfTwo();
+    } else if (key == '-') {
+        if (operationCount == 0 && !display.textContent.includes('-')) {
+            expression.push('-');
+            display.textContent = `${expression[0]}`;
+            operationCount++;
+        } else if (expression[2] == undefined && expression[1] !== undefined) {
+            expression.push('-');
+            display.textContent += ` ${expression[2]}`;
+            operateIfTwo();
+            operationCount++;
+        } else if (expression[1] == undefined && /\d/.test(expression[0])) {
+            expression.push('-');
+            display.textContent += ` ${expression[1]}`;
+            operationCount++;
+            operateIfTwo();
+        } else {
+            expression.push('-');
+            display.textContent += ` ${expression[1]}`;
+            operationCount++;
+            operateIfTwo();
+        }
     } else if (key == '*') {
         expression.push('x');
         display.textContent += ` ${expression[1]}`;
@@ -323,7 +374,14 @@ function getKey(event) {
         };
     } else if (key == 'Enter') {
         if (expression[2] === undefined) {
-            display.textContent = 'Human! You forgot the second operand!!'
+            display.textContent = 'You forgot the second operand!'
+            expression = [];
+            operationCount = 0;
+            deleteBtn.removeEventListener('click', deleteDisplay);
+            setTimeout(() => {
+            display.textContent = 0;
+            deleteBtn.addEventListener('click', deleteDisplay);
+            }, 2000);
         } else {
             let func = determineOperator();
             result = operate(func, expression[0], expression[2]);
@@ -332,72 +390,20 @@ function getKey(event) {
             }
             expression = [result];
             display.textContent = `${expression[0]}`;
-            operationCount = 1;
+            if (display.textContent == 'Seriously human!?') {
+                expression = [];
+                operationCount = 0;
+                setTimeout(() => display.textContent = 0, 2000);
+            } else {
+                operationCount = 1;
+            }
         };
     } else if (key == 'Backspace') {
-        let oldContent = display.textContent.split('');
-        oldContent.pop();
-        oldContent = oldContent.join('');
-        let test = oldContent.split(' ');
-        let index = 0;
-        let temp = 0;
-
-        if (test.includes('+')) {
-            index = test.findIndex((element) => element == '+');
-            if (test[index + 1] == undefined) {
-                expression[1] = test[index];
-                operationCount = 2;
-            } else {
-                temp = test.slice((index + 1));
-                expression[2] = temp;
-                operationCount = 3;
-            }
-        } else if (test.includes('-')) {
-            index = test.findIndex((element) => element == '-');
-            if (test[index + 1] == undefined) {
-                expression[1] = test[index];
-                operationCount = 2;
-            } else {
-                temp = test.slice((index + 1));
-                expression[2] = temp;
-                operationCount = 3;
-            }
-        } else if (test.includes('x')) {
-            index = test.findIndex((element) => element == 'x');
-            if (test[index + 1] == undefined) {
-                expression[1] = test[index];
-                operationCount = 2;
-            } else {
-                temp = test.slice((index + 1));
-                expression[2] = temp;
-                operationCount = 3;
-            }
-        } else if (test.includes('÷')) {
-            index = test.findIndex((element) => element == '÷');
-            if (test[index + 1] == undefined) {
-                expression[1] = test[index];
-                operationCount = 2;
-            } else {
-                temp = test.slice((index + 1));
-                expression[2] = temp;
-                operationCount = 3;
-            }
-        } else if (test.includes('^')) {
-            index = test.findIndex((element) => element == '^');
-            if (test[index + 1] == undefined) {
-                expression[1] = test[index];
-                operationCount = 2;
-            } else {
-                temp = test.slice((index + 1));
-                expression[2] = temp;
-                operationCount = 3;
-            }
+        if (display.textContent == 'Seriously human!?') {
+            return;
         } else {
-            expression[0] = test.join('');
-            operationCount = 1;
-        };
-
-        display.textContent = test.join('');
+            deleteDisplay();
+        }
     };
 }
 
